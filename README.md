@@ -1,5 +1,5 @@
 # CannonGame
-A Stationary Cannon Game.
+A Stationary Cannon Game made in Unity 2017.
 
 # Instructions
 
