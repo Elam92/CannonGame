@@ -46,8 +46,8 @@ namespace CannonGame
             // Turn on GameOver Screen when Player is dead.
             player.GetHealth().OnDeath += GameOver;
 
+            // Look through all Pool Users inside Player object.
             IPoolUser[] poolUsers = player.GetComponentsInChildren<IPoolUser>();
-            Debug.Log(poolUsers.Length);
             foreach(IPoolUser pUser in poolUsers)
             {
                 pUser.InitializeWithPooler(poolManager, poolUserInstances);
