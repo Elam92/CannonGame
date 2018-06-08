@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 65683621954583906}
   - component: {fileID: 23916864361187386}
   - component: {fileID: 54573213074271180}
-  - component: {fileID: 114787705503684618}
+  - component: {fileID: 114267373036754808}
   - component: {fileID: 114426184835733504}
   - component: {fileID: 114793286222583700}
   m_Layer: 9
@@ -247,6 +247,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114267373036754808
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1523324629601572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f99ad76040f2814882debda4bb4dc3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  scoreValue: 10
+  moveSpeed: 5
 --- !u!114 &114426184835733504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -286,20 +300,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114787705503684618
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1523324629601572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b49d4b4879c70d4fa69419048c9e4a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
-  scoreValue: 10
-  moveSpeed: 5
 --- !u!114 &114793286222583700
 MonoBehaviour:
   m_ObjectHideFlags: 1

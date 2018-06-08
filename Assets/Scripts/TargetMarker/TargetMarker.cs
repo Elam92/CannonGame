@@ -30,9 +30,9 @@ namespace CannonGame {
         }
 
         // Set the origin of where the player is and its movement range limit.
-        public void SetOrigin(Vector3 newOrigin, float newRangeLimit)
+        public void SetOriginRange(Vector3 newOrigin, float newRangeLimit)
         {
-            movement = new TargetMovement(transform, newOrigin, speed, newRangeLimit);
+            movement = new TargetMovement(transform, newOrigin, speed, newRangeLimit, new UnityDeltaTime());
         }
     }
 }

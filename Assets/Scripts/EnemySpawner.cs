@@ -10,7 +10,9 @@ namespace CannonGame
     public class EnemySpawner : MonoBehaviour, IPoolUser
     {
         // The different types of enemies in the level.
-        public Enemy[] enemyPrefabs;
+        public BaseEnemy[] enemyPrefabs;
+
+        public int initialPoolSize = 5;
 
         // The distance away from the player to spawn an enemy.
         public float additionalDistFromPlayer = 20f;
@@ -19,9 +21,9 @@ namespace CannonGame
         private int groundLayer = 10;
 
         // The Player object.
-        private Player target;
+        private IPlayer target;
         // The Score Keeper for when enemies die.
-        private ScoreManager scoreManager;
+        private IScoreManager scoreManager;
         // The Pool Manager that handles object reuse.
         private IPoolManager pooler;
 
@@ -32,7 +34,7 @@ namespace CannonGame
         private bool initialized = false;
 
         // Use this for initialization
-        public void Initialize(Player player, IPoolManager newPooler, ScoreManager newScoreManager)
+        public void Initialize(IPlayer player, IPoolManager newPooler, IScoreManager newScoreManager)
         {
             target = player;
             scoreManager = newScoreManager;
@@ -41,48 +43,53 @@ namespace CannonGame
             layerMask = 1 << groundLayer;
 
             // Create pools of our enemies.
-            InitializeWithPooler(newPooler, 5);
+            InitializeWithPooler(newPooler, initialPoolSize);
 
             initialized = true;
         }
 
         // Finds a position around the player before spawning an enemy.
-        public void Spawn()
+        public BaseEnemy Spawn()
         {
             if (initialized)
             {
-                Vector3 targetPos = target.transform.position;
+                Vector3 targetPos = target.GetTransform().position;
 
                 // Get a random direction around the Player.
                 float angle = Random.Range(0.0f, Mathf.PI * 2);
                 Vector3 directionPosition = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle));
 
                 // Ensure that it's spawned outside the Player's Range.
-                directionPosition *= target.radius + additionalDistFromPlayer;
+                directionPosition *= target.GetRadius() + additionalDistFromPlayer;
 
                 // Get location and spawn it above the ground.
                 Vector3 spawnPoint = targetPos - directionPosition;
-                SpawnOnGround(spawnPoint);
+                return SpawnOnGround(spawnPoint);
             }
+
+            return null;
         }
 
         // Spawn enemies at the location at ground level.
-        private void SpawnOnGround(Vector3 spawnLocation)
+        private BaseEnemy SpawnOnGround(Vector3 spawnLocation)
         {
             // Raycast from above down towards the ground.
             spawnLocation.y = 100f;
             RaycastHit hit;
+
             if (Physics.Raycast(spawnLocation, Vector3.down, out hit, 1000f, layerMask))
             {
                 // Find the y-offset needed to adjust its position to be above the ground.
-                Enemy enemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+                BaseEnemy enemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
                 float yOffset = enemy.GetComponent<MeshRenderer>().bounds.extents.y;
 
                 // Instantiate the enemy and set its target.
                 Vector3 spawnPosition = new Vector3(hit.point.x, hit.point.y + yOffset, hit.point.z);
-                Enemy obj = (Enemy)pooler.UseObject(enemy, spawnPosition, Quaternion.identity);
-                obj.SetTarget(target.transform);
+                BaseEnemy obj = (BaseEnemy)pooler.UseObject(enemy, spawnPosition, Quaternion.identity);
+                obj.SetTarget(target.GetTransform());
+                return obj;
             }
+            return null;
         }
 
         // Create pools of the enemies that we have in our container.

@@ -24,6 +24,10 @@ namespace CannonGame
             {
                 newHp = 0f;
             }
+            if(newHp > 1f)
+            {
+                newHp = 1f;
+            }
 
             healthBar.fillAmount = newHp;
         }

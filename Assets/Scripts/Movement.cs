@@ -16,11 +16,11 @@ namespace CannonGame {
         // Unity Wrapper to get time.
         private IUnityTime time;
 
-        public Movement(Transform mover, float newSpeed)
+        public Movement(Transform mover, float newSpeed, IUnityTime timeInformation)
         {
             self = mover;
             speed = newSpeed;
-            time = new UnityDeltaTime();
+            time = timeInformation;
         }
 
         // Moves the object on the X and Z axis.

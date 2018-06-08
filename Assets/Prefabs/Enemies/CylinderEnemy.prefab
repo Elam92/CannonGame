@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 136720487352942330}
   - component: {fileID: 23936362579193000}
   - component: {fileID: 54918084332349218}
-  - component: {fileID: 114681127703946760}
+  - component: {fileID: 114677518014860878}
   - component: {fileID: 114307627972230778}
   - component: {fileID: 114745319329732238}
   m_Layer: 9
@@ -253,7 +253,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114681127703946760
+--- !u!114 &114677518014860878
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -261,11 +261,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1257677858629124}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56c929203c2e35b46a13ad9574c90609, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aa49517192aa4e4fa86eb96bc87726f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 30
-  scoreValue: 10
   moveSpeed: 3
   explodePrefab: {fileID: 114388702581795466, guid: e3634812dc2985b4d8bf0e5a7b1a990f,
     type: 2}
@@ -280,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d5519c7755d9342a081ab21fbeb40f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scorePoints: 20
+  scorePoints: 30
 --- !u!114 &114852541521733034
 MonoBehaviour:
   m_ObjectHideFlags: 1

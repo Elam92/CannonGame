@@ -2,19 +2,16 @@
 
 namespace CannonGame
 {
-    /*  Enemy Class
+    /*  BaseEnemy Class
      * 
      *  The base enemy that all enemies should derive from.
      */
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(Score))]
-    public abstract class Enemy : PooledObject
+    public abstract class BaseEnemy : PooledObject
     {
         // How much damage it should deal out.
         public float damage = 10f;
-
-        // How much the enemy is worth in points.
-        public int scoreValue = 10;
 
         // How fast should it move.
         public float moveSpeed = 5f;

@@ -26,14 +26,14 @@ namespace CannonGame
         // Used for checking if the player reached the maximum range or not from the Player position.
         private float rangeCheck;
 
-        public TargetMovement(Transform mover, Vector3 newOrigin, float newSpeed, float newRangeLimit)
+        public TargetMovement(Transform mover, Vector3 newOrigin, float newSpeed, float newRangeLimit, IUnityTime timeInformation)
         {
             self = mover;
             origin = newOrigin;
             speed = newSpeed;
             rangeLimit = newRangeLimit;
 
-            time = new UnityDeltaTime();
+            time = timeInformation;
 
             // To avoid square rooting when checking for distance.
             rangeCheck = newRangeLimit * newRangeLimit;

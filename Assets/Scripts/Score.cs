@@ -12,19 +12,19 @@ namespace CannonGame
         public int scorePoints = 10;
 
         // Tracks all the scores earned.
-        private ScoreManager scoreManager;
+        private IScoreManager scoreManager;
 
         // Add object's score value to the total score earned.
         public void AddScore()
         {
-            if(scoreManager)
+            if(scoreManager != null)
             {
                 scoreManager.UpdateScore(scorePoints);
             }
         }
 
         // Initialize Score component with object that tracks scores.
-        public void Initialize(ScoreManager scoreManager)
+        public void Initialize(IScoreManager scoreManager)
         {
             this.scoreManager = scoreManager;
         }

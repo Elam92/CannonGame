@@ -5,7 +5,8 @@ namespace CannonGame
     /*  Launcher Class
      * 
      *  Launches different projectiles given to it in an arc.
-     */ 
+     */
+    [RequireComponent(typeof(AmmoLoader))]
     [RequireComponent(typeof(ArcRenderer))]
     public class Launcher : MonoBehaviour
     {
@@ -18,14 +19,21 @@ namespace CannonGame
         // The gravity that will affect the projectile's acceleration.
         public float gravity = -18f;
 
+        // The Player's ammo selection.
+        private AmmoLoader ammoLoader;
+
         // Draws a visible arc in the game.
         private ArcRenderer arcRenderer;
+
+        private void Awake()
+        {
+            ammoLoader = GetComponent<AmmoLoader>();
+            arcRenderer = GetComponent<ArcRenderer>();
+        }
 
         // Use this for initialization
         void Start()
         {
-            arcRenderer = GetComponent<ArcRenderer>();
-
             // Set physics up with our gravity so that projectiles fall faster.
             Physics.gravity = Vector3.up * gravity;
         }
@@ -38,8 +46,11 @@ namespace CannonGame
         }
 
         // Launches the given projectile at a target position.
-        public void Launch(ILaunchable projectile, Vector3 targetPosition)
+        public void Launch(Vector3 targetPosition)
         {
+            // Get the active projectile type and set its starting position.
+            Projectile projectile = ammoLoader.UseType(launchPoint.position, Quaternion.identity);
+
             // Calculate and pass the direction speed to move the projectile.
             Vector3 velocity = CalculateLaunchData(launchPoint.position, targetPosition).initialVelocity;
             projectile.Launch(velocity);

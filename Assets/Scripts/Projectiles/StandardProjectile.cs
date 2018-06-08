@@ -2,15 +2,14 @@
 
 namespace CannonGame
 {
-    /*  SquareProjectile Class
+    /*  StandardProjectile Class
      *  
      *  The basic projectile in the game.
      */
     [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(BoxCollider))]
-    public class SquareProjectile : Projectile
+    public class StandardProjectile : Projectile
     {
-        private Rigidbody rb;
+        protected Rigidbody rb;
 
         protected override void Awake()
         {
@@ -18,26 +17,26 @@ namespace CannonGame
             rb = GetComponent<Rigidbody>();
         }
 
-        private void OnCollisionEnter(Collision collision)
+        protected void OnCollisionEnter(Collision collision)
         {
             // Ignore Player Tag/Player.
-            if(collision.gameObject.CompareTag("Player"))
+            if (collision.gameObject.CompareTag("Player"))
             {
                 return;
             }
 
             // If we collided with something that's damagable.
             IDamageable hittable = collision.gameObject.GetComponent<IDamageable>();
-            if(hittable != null)
+            if (hittable != null)
             {
                 hittable.TakeHit(damage);
-                Deactivate();
+                Death();
             }
 
             // If we end up hitting the ground.
-            if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
-                Deactivate();
+                Death();
             }
 
         }

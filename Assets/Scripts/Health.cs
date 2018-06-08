@@ -26,6 +26,11 @@ namespace CannonGame
 
         private void Awake()
         {
+            if(startingHealth <= 0)
+            {
+                startingHealth = 60f;
+            }
+
             health = startingHealth;
             oldHealth = startingHealth;
         }
@@ -40,6 +45,12 @@ namespace CannonGame
         // Can be hurt and loses health.
         public void TakeHit(float damage)
         {
+            // Make sure we're not adding health from our damage.
+            if(damage < 0)
+            {
+                damage = 0;
+            }
+
             health -= damage;
             float fraction = health / oldHealth;
 
