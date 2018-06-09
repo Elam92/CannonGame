@@ -93,5 +93,18 @@ namespace CannonGameTests
 
             Assert.IsTrue(isDead);
         }
+
+        [TearDown]
+        public void CleanUp()
+        {
+            GameObject[] allObjects = Object.FindObjectsOfType<GameObject>();
+            foreach (GameObject go in allObjects)
+            {
+                if (go.activeInHierarchy)
+                {
+                    Object.Destroy(go);
+                }
+            }
+        }
     }
 }

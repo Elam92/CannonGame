@@ -101,7 +101,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4969914450586380}
   - component: {fileID: 114615094349586878}
-  - component: {fileID: 114313359370661192}
   - component: {fileID: 65846354270585764}
   - component: {fileID: 54972835471753362}
   - component: {fileID: 114601553574603392}
@@ -121,6 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4737491313076222}
   - component: {fileID: 114628082787311264}
+  - component: {fileID: 114843401653567562}
   - component: {fileID: 114428880431687008}
   - component: {fileID: 120283327178795428}
   m_Layer: 8
@@ -348,20 +348,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 4, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114313359370661192
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1777276845276930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4712b396d454ea44a810337e62bb3d83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileTypes:
-  - {fileID: 114432371101512762, guid: aefa3ba7829c58f4592205a29528bc8d, type: 2}
-  - {fileID: 114256330002915250, guid: 21430da52fb07cf41bef7695b0d84a73, type: 2}
 --- !u!114 &114428880431687008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -415,6 +401,20 @@ MonoBehaviour:
   launchPoint: {fileID: 4798303254870606}
   h: 0.5
   gravity: -60
+--- !u!114 &114843401653567562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1795389097218186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4712b396d454ea44a810337e62bb3d83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileTypes:
+  - {fileID: 114787337101153804, guid: aefa3ba7829c58f4592205a29528bc8d, type: 2}
+  - {fileID: 114084691765985550, guid: 21430da52fb07cf41bef7695b0d84a73, type: 2}
 --- !u!119 &119521114626337942
 Projector:
   m_ObjectHideFlags: 1

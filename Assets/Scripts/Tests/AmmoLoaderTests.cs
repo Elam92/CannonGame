@@ -7,10 +7,11 @@ namespace CannonGameTests
 {
     public class AmmoLoaderTests
     {
-
         public AmmoLoader ammoLoader;
-        public IPoolManager poolManager;
+        public GameObject projectileGO1;
+        public GameObject projectileGO2;
 
+        public IPoolManager poolManager;
 
         [SetUp]
         public void Initialize_AmmoLoader()
@@ -21,10 +22,10 @@ namespace CannonGameTests
 
             Projectile[] types = ammoLoader.projectileTypes = new Projectile[2];
 
-            var projectileGO1 = new GameObject();
+            projectileGO1 = new GameObject();
             Projectile projectile1 = projectileGO1.AddComponent<StandardProjectile>();
 
-            var projectileGO2 = new GameObject();
+            projectileGO2 = new GameObject();
             Projectile projectile2 = projectileGO2.AddComponent<StandardProjectileExplodable>();
 
             types[0] = projectile1;
@@ -148,6 +149,14 @@ namespace CannonGameTests
             Projectile result = ammoLoader.UseType(Vector3.one, Quaternion.identity);
 
             Assert.AreEqual(expectedResult, result);
+        }
+
+        [TearDown]
+        public void CleanUp()
+        {
+            Object.Destroy(ammoLoader.gameObject);
+            Object.Destroy(projectileGO1);
+            Object.Destroy(projectileGO2);
         }
     }
 }

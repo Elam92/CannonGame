@@ -72,5 +72,15 @@ namespace CannonGameTests
             Assert.AreEqual(expectedX, mover.position.x, 0.05f);
             Assert.AreEqual(expectedZ, mover.position.z, 0.05f);
         }
+
+        [TearDown]
+        public void CleanUp()
+        {
+            GameObject[] allObjects = Object.FindObjectsOfType<GameObject>();
+            foreach (GameObject go in allObjects)
+            {
+                Object.Destroy(go);
+            }
+        }
     }
 }
