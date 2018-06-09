@@ -9,7 +9,7 @@ namespace CannonGame
      *  that the player moves around.
      */ 
     [RequireComponent(typeof(Health))]
-    public class Player : MonoBehaviour, IPlayer
+    public class Player : MonoBehaviour
     {
         // Radius of the shootable area.
         public float radius = 30f;
@@ -43,30 +43,6 @@ namespace CannonGame
         // Use this for initialization
         void Start()
         {
-            Initialize();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            Tick();
-        }
-
-        // Unsubscribe from the event.
-        private void OnDestroy()
-        {
-            CleanUp();
-        }
-
-        // Return Player's current health.
-        public Health GetHealth()
-        {
-            return health;
-        }
-
-        // Initialize the Player object.
-        public void Initialize()
-        {
             // UI HP Bar will listen to any health changes that happens to the Player.
             health.OnHealthChange += hpBar.UpdateHealthBar;
 
@@ -74,8 +50,8 @@ namespace CannonGame
             target.GetComponent<TargetMarker>().SetOriginRange(transform.position, radius);
         }
 
-        // Run method every frame.
-        public void Tick()
+        // Update is called once per frame
+        void Update()
         {
             // Control for launcher.
             if (!EventSystem.current.IsPointerOverGameObject())
@@ -93,20 +69,16 @@ namespace CannonGame
             model.rotation = Quaternion.LookRotation(target.position - transform.position, Vector3.up);
         }
 
-        // Clean up any garbage before object is destroyed.
-        public void CleanUp()
+        // Unsubscribe from the event.
+        private void OnDestroy()
         {
             health.OnHealthChange -= hpBar.UpdateHealthBar;
         }
 
-        public Transform GetTransform()
+        // Return Player's current health.
+        public Health GetHealth()
         {
-            return transform;
-        }
-
-        public float GetRadius()
-        {
-            return radius;
+            return health;
         }
     }
 }

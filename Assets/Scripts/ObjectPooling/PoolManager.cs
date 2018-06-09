@@ -44,7 +44,12 @@ namespace CannonGame
         // Creates a new pool of a game object with a specified amount of objects to Instantiate.
         public PooledObject[] CreatePool(PooledObject prefab, int poolSize)
         {
+            if(prefab == null)
+            {
+                return null;
+            }
             int poolKey = prefab.GetInstanceID();
+
             PooledObject[] poolContainer = new PooledObject[poolSize];
 
             if (!HasObject(poolKey))
@@ -70,34 +75,42 @@ namespace CannonGame
         // Use a pooled object that it manages.
         public PooledObject UseObject(PooledObject prefab, Vector3 position, Quaternion rotation)
         {
-            int poolKey = prefab.GetInstanceID();
-
-            if (!HasObject(poolKey))
+            if (prefab == null)
             {
                 return null;
             }
+            int poolKey = prefab.GetInstanceID();
 
-            PooledObject useObject = poolDictionary[poolKey].Dequeue();
-            poolDictionary[poolKey].Enqueue(useObject);
-
-            // If the object is already being used, time to instantiate a new one and add it to the pool.
-            if (useObject.CheckActive())
+            if (HasObject(poolKey))
             {
-                useObject = InstantiateInstance(poolKey, prefab);
+                PooledObject useObject = poolDictionary[poolKey].Dequeue();
+                poolDictionary[poolKey].Enqueue(useObject);
+
+                // If the object is already being used, time to instantiate a new one and add it to the pool.
+                if (useObject.CheckActive())
+                {
+                    useObject = InstantiateInstance(poolKey, prefab);
+                }
+
+                // Reset the values.
+                useObject.Reset(position, rotation);
+
+                return useObject;
             }
 
-            // Reset the values.
-            useObject.Reset(position, rotation);
-
-            return useObject;
+            return null;
         }
 
         // Look at the next pooled object to be used from its pool.
         public PooledObject Peek(PooledObject prefab)
         {
+            if (prefab == null)
+            {
+                return null;
+            }
             int poolKey = prefab.GetInstanceID();
 
-            if(!HasObject(poolKey) || poolDictionary[poolKey].Count == 0)
+            if (!HasObject(poolKey) || poolDictionary[poolKey].Count == 0)
             {
                 return null;
             }

@@ -1,33 +1,39 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.TestTools;
 using NUnit.Framework;
 using CannonGame;
 
-public class HealthBarTests
+namespace CannonGameTests
 {
-
-    public Image hpBarUI;
-
-    public HealthBar healthBar;
-
-    [SetUp]
-    public void HealthBar_Create()
+    public class HealthBarTests
     {
-        var go = new GameObject();
-        hpBarUI = go.AddComponent<Image>();
-        healthBar = go.AddComponent<HealthBar>(); 
-    }
+        public Image hpBarUI;
 
-    [TestCase(2f, 1f)]
-    [TestCase(1f, 1f)]
-    [TestCase(0.5f, 0.5f)]
-    [TestCase(0f, 0f)]
-    [TestCase(-1f, 0f)]
-    public void HealthBar_UpdateHealth_ToAmount(float amount, float result)
-    {
-        healthBar.UpdateHealthBar(amount);
+        public HealthBar healthBar;
 
-        Assert.AreEqual(result, hpBarUI.fillAmount, 0.005f);
+        [SetUp]
+        public void HealthBar_Create()
+        {
+            var go = new GameObject();
+            hpBarUI = go.AddComponent<Image>();
+            healthBar = go.AddComponent<HealthBar>();
+        }
+
+        // Add over the fill amount.
+        [TestCase(2f, 1f)]
+        // Fill to 100%.
+        [TestCase(1f, 1f)]
+        // Fill half way.
+        [TestCase(0.5f, 0.5f)]
+        // Zero health.
+        [TestCase(0f, 0f)]
+        // Give a negative health value.
+        [TestCase(-1f, 0f)]
+        public void HealthBar_UpdateHealth_ToAmount(float amount, float result)
+        {
+            healthBar.UpdateHealthBar(amount);
+
+            Assert.AreEqual(result, hpBarUI.fillAmount, 0.005f);
+        }
     }
 }

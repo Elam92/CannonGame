@@ -21,7 +21,7 @@ namespace CannonGame
         private int groundLayer = 10;
 
         // The Player object.
-        private IPlayer target;
+        private Player target;
         // The Score Keeper for when enemies die.
         private IScoreManager scoreManager;
         // The Pool Manager that handles object reuse.
@@ -34,7 +34,7 @@ namespace CannonGame
         private bool initialized = false;
 
         // Use this for initialization
-        public void Initialize(IPlayer player, IPoolManager newPooler, IScoreManager newScoreManager)
+        public void Initialize(Player player, IPoolManager newPooler, IScoreManager newScoreManager)
         {
             target = player;
             scoreManager = newScoreManager;
@@ -53,14 +53,14 @@ namespace CannonGame
         {
             if (initialized)
             {
-                Vector3 targetPos = target.GetTransform().position;
+                Vector3 targetPos = target.transform.position;
 
                 // Get a random direction around the Player.
                 float angle = Random.Range(0.0f, Mathf.PI * 2);
                 Vector3 directionPosition = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle));
 
                 // Ensure that it's spawned outside the Player's Range.
-                directionPosition *= target.GetRadius() + additionalDistFromPlayer;
+                directionPosition *= target.radius + additionalDistFromPlayer;
 
                 // Get location and spawn it above the ground.
                 Vector3 spawnPoint = targetPos - directionPosition;
@@ -86,7 +86,7 @@ namespace CannonGame
                 // Instantiate the enemy and set its target.
                 Vector3 spawnPosition = new Vector3(hit.point.x, hit.point.y + yOffset, hit.point.z);
                 BaseEnemy obj = (BaseEnemy)pooler.UseObject(enemy, spawnPosition, Quaternion.identity);
-                obj.SetTarget(target.GetTransform());
+                obj.SetTarget(target.transform);
                 return obj;
             }
             return null;

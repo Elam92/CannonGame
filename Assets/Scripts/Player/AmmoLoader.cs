@@ -17,21 +17,12 @@ namespace CannonGame {
         // The current projectile being used.
         private Projectile currentType;
 
-        private void Start()
-        {
-
-        }
-
         // Instantiate a projectile to be launched.
         public Projectile UseType(Vector3 position, Quaternion rotation)
         {
-            if (projectileTypes == null || projectileTypes.Length == 0)
-            {
-                return null;
-            }
             if(currentType == null)
             {
-                SetType(0);
+                return null;
             }
 
             return pooler.UseObject(currentType, position, rotation) as Projectile;
@@ -40,10 +31,10 @@ namespace CannonGame {
         // Set projectile type by index.
         public void SetType(int index)
         {
-            Debug.Log(projectileTypes.Length);
             if (projectileTypes == null || projectileTypes.Length == 0)
             {
                 currentType = null;
+                return;
             }
 
             if (index < 0)
